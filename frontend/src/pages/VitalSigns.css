@@ -1,0 +1,58 @@
+/* src/pages/VitalSigns.css */
+.vital-signs-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que la página ocupe al menos toda la altura de la pantalla */
+  flex-grow: 1;
+}
+
+.vital-signs-layout {
+  display: flex;
+  flex-grow: 1; /* Permite que este contenedor crezca para ocupar el espacio restante */
+  /* No definas una altura fija aquí a menos que sea intencional */
+  /* overflow: hidden;  Podrías probar esto si el desbordamiento es incontrolable, pero primero identifiquemos la causa */
+}
+
+.vital-signs-content {
+  padding: 2rem;
+  flex-grow: 1; /* Permite que este contenedor crezca para ocupar el espacio a la derecha del Sidebar */
+  /* No definas una altura fija aquí a menos que sea intencional */
+}
+
+.vital-signs-content h1 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+  justify-self: center;
+}
+
+.vital-signs-form {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(233, 230, 230, 0.075);
+  max-width: 1000px; /* Ancho máximo del formulario */
+  /* No definas una altura fija aquí a menos que sea intencional */
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  /* No definas una altura fija aquí a menos que sea intencional */
+}
+
+.vital-signs-form button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  color: white;
+  background-color: #28a745;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.vital-signs-form button:hover {
+  background-color: #1e7e34;
+}

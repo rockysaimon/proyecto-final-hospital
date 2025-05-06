@@ -1,0 +1,76 @@
+/* src/components/Navbar.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.navbar {
+  background-color: #fff;
+  color: #007bff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  position: relative; /* Añade esta línea */
+  margin-left: 1%;
+  height: 80px;
+}
+
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 auto 0 0; /* Empuja el título hacia la izquierda y lo centra */
+  text-align: center; /* Asegura que el texto dentro esté centrado */
+}
+
+.dropdown-button {
+  background: none;
+  border: none;
+  color: #007bff; /* Color azul para el botón */
+  cursor: pointer;
+  font-size: 1.5rem; /* Icono de menú más grande */
+  padding: 0.5rem;
+  display: block; /* Siempre visible */
+  margin-left: auto; /* Empuja el botón hacia la derecha */
+}
+
+.navbar-nav {
+  position: absolute; /* Para que se despliegue sobre el contenido */
+  top: 100%; /* Debajo de la barra de navegación */
+  right: 2rem; /* Alineado con el botón de despliegue */
+  background-color: #fff;
+  color: #007bff;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  display: none; /* Oculto por defecto */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  min-width: 150px; /* Ancho mínimo del menú desplegable */
+}
+
+.navbar-nav.open {
+  display: block;
+}
+
+.navbar-nav li a,
+.navbar-nav li button {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  color: #007bff;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li button:hover {
+  background-color: #f8f9fa; /* Un gris muy claro al pasar el ratón */
+}

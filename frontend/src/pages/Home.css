@@ -1,0 +1,139 @@
+/* src/pages/Home.css */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.home-content { /* Ajustamos el selector para el contenido principal */
+  flex-grow: 1;
+  max-width: 1200px;
+  margin: 0;
+  padding: 2rem; /* Añadimos padding al contenido principal ahora que no está dentro de home-layout */
+  background-color: #f4f6f8; /* Un fondo gris claro */
+  justify-items: center;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.home-header h1 {
+  color: #333;
+  font-size: 2rem;
+}
+
+.header-actions .notification-button {
+  background-color: #fff;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.header-actions .notification-button:hover {
+  background-color: #e9f2ff;
+}
+
+.header-actions .badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.about-us {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-us h2 {
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.about-us p {
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.quick-access {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 4rem;
+  margin-bottom: 2rem;
+  justify-items: center;
+}
+
+.quick-access h2 {
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Ajustamos el ancho mínimo */
+  gap: 1.5rem;
+}
+
+/* Estilos para los elementos de acceso rápido */
+.quick-access-item {
+  background-color: #e9faff;
+  border-radius: 0.3rem;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #d1ecf1;
+  text-decoration: none;
+  color: #007bff; /* Texto en azul */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-access-item:hover {
+  background-color: #cce5ff;
+}
+
+.quick-access-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.quick-access-item span {
+  font-weight: bold;
+}
+
+.home-footer {
+  text-align: center;
+  padding-top: 2rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Media query para forzar 3 columnas en pantallas más grandes */
+@media (min-width: 268px) {
+  .quick-access-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

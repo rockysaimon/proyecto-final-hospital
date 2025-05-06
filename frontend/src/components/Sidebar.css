@@ -1,0 +1,72 @@
+/* src/components/Sidebar.css */
+.sidebar {
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Texto oscuro para contraste */
+    width: 15%; /* Un poco más ancho para mayor legibilidad */
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 2rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Sutil sombra */
+    z-index: 20;
+    border-right: 1px solid #eee; /* Borde derecho sutil */
+  }
+  
+  .sidebar-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sidebar-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff; /* Azul primario para el título */
+  }
+  
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem; /* Un poco más de espacio vertical */
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-link:hover {
+    background-color: #f8f9fa; /* Gris muy claro al pasar el ratón */
+  }
+  
+  .sidebar-icon {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    color: #007bff; /* Azul primario para los iconos */
+  }
+  
+  .sidebar-link.active {
+    background-color: #e9ecef; /* Gris claro para el enlace activo */
+    border-left: 3px solid #007bff; /* Barra azul para indicar activo */
+    color: #007bff; /* Texto azul para el enlace activo */
+  }
+  
+  /* Estilos para hacerlo colapsable (opcional) */
+  .sidebar.collapsed {
+    width: 60px;
+  }
+  
+  .sidebar.collapsed .sidebar-header h3,
+  .sidebar.collapsed .sidebar-link span {
+    display: none;
+  }
+  
+  .sidebar.collapsed .sidebar-icon {
+    margin-right: 0;
+  }
