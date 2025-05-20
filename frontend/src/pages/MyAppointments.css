@@ -1,0 +1,64 @@
+/* src/pages/MyAppointments.css */
+.my-appointments-page {
+  display: flex;
+  flex-direction: column; /* Cambiamos a columna para Navbar arriba */
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex; /* Para Sidebar y contenido principal */
+  flex-grow: 1;
+}
+
+.appointments-content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 220px; /* Ajusta según el ancho de tu Sidebar */
+}
+
+.appointments-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.appointments-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.appointment-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.appointment-card p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}

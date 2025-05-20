@@ -17,8 +17,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insertar el nuevo usuario
-    const result = await sql.query`INSERT INTO Usuarios (nombre_usuario, correo, telefono, Token, identificador, id_rol) 
-    VALUES (${nombre_usuario}, ${correo}, ${telefono}, ${hashedPassword}, ${identificador}, ${id_rol})`;
+    const result = await sql.query`INSERT INTO Usuarios (id_usuario, nombre_usuario, correo, telefono, Token, identificador, id_rol) 
+    VALUES (2,${nombre_usuario}, ${correo}, ${telefono}, ${hashedPassword}, ${identificador}, ${id_rol})`;
 
     res.status(201).json({ message: 'Usuario registrado exitosamente' });
   } catch (error) {
@@ -26,6 +26,7 @@ const registerUser = async (req, res) => {
     res.status(500).json({ message: 'Error del servidor' });
   }
 };
+
 
 // Función para iniciar sesión
 const loginUser = async (req, res) => {
@@ -43,8 +44,11 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
+    // *** LOG DE LA CLAVE SECRETA ***
+    console.log('Clave secreta para firmar el token:', process.env.JWT_SECRET);
+
     // Generar un token JWT
-    const token = jwt.sign({ id_usuario: user.recordset[0].id_usuario }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id_usuario: user.recordset[0].id_usuario }, process.env.JWT_SECRET, { expiresIn: '24h' }); // Aumenté la duración a 24h
 
     res.json({ message: 'Login exitoso', token });
   } catch (error) {

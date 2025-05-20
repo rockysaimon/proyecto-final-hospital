@@ -8,7 +8,8 @@ import Profile from './pages/Profile';
 import VitalSigns from './pages/VitalSigns';
 import VitalSignsHistory from './pages/VitalSignsHistory';
 import Appointments from './pages/Appointments';
-import UpdateProfile from './pages/UpdateProfile'; // Importa la página
+import UpdateProfile from './pages/UpdateProfile';
+import MyAppointments from './pages/MyAppointments';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/vital-signs" element={<VitalSigns />} />
         <Route path="/vital-signs/history" element={<VitalSignsHistory />} />
         <Route path="/appointments" element={<Appointments />} />
+        <Route path="/my-appointments" element={<MyAppointments />} />
         {/* Agrega aquí las demás rutas */}
       </Routes>
   );

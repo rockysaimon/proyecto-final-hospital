@@ -18,7 +18,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">Hospital en Casa</Link>
+      <Link to="/home" className="navbar-brand">Hospital en Casa</Link>
       <button className="dropdown-button" onClick={toggleMenu}>
         {/* Icono de menú hamburguesa */}
         ☰

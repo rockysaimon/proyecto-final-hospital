@@ -3,19 +3,45 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Aseguramos que el Navbar esté siempre en la parte superior */
+.appointments-page > nav { /* Selecciona el Navbar que es hijo directo de appointments-page */
+  width: 100%;
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  /* Puedes añadir otros estilos para tu Navbar aquí si es necesario,
+     como posición fixed si quieres que siempre esté visible al hacer scroll */
 }
 
 .appointments-layout {
   display: flex;
   flex-grow: 1;
   overflow-y: auto;
-  padding: 1rem;
+}
+
+.appointments-layout > aside { /* Selecciona el Sidebar que es hijo directo de appointments-layout */
+  width: 250px; /* Ancho típico de un Sidebar, ajusta según tu componente Sidebar */
+  /* Posición fixed para que se quede en su lugar al hacer scroll */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #f8f9fa; /* O el color de fondo de tu Sidebar */
+  border-right: 1px solid #eee; /* Opcional: una línea divisoria */
+  z-index: 5; /* Asegura que esté por encima del contenido principal */
 }
 
 .appointments-content {
   flex-grow: 1;
-  max-width: 960px; /* Un ancho máximo razonable */
+  max-width: 1200px;
   margin: 0 auto;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 2rem;
+  /* Importante: margen izquierdo para dar espacio al Sidebar */
+  margin-left: 250px; /* Debe ser igual al ancho del Sidebar */
 }
 
 .appointments-content h1 {
@@ -26,28 +52,42 @@
 
 .appointment-selector {
   display: flex;
-  gap: 0.01rem; /* Espacio entre el calendario y los horarios */
-  align-items: flex-start; /* Alinea los contenedores en la parte superior */
+  gap: 2rem;
+  align-items: flex-start;
+  flex-direction: row;
 }
 
 .calendar-container {
-  background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  padding: 1.5rem;
-  width: 300px; /* Ancho del calendario */
+  width: 350px;
 }
 
 .calendar-container h2 {
-  color: #28a745; /* Un verde suave para el título del calendario */
+  color: #28a745;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
-/* Estilos para react-datepicker (puedes personalizarlos más) */
-.react-datepicker__month-container {
-  border-radius: 0.3rem;
+.react-datepicker-custom {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid #ced4da;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.react-datepicker__header {
+  background-color: #e9ecef;
+  border-bottom: 1px solid #ced4da;
+  padding-top: 0.8rem;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  width: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.2rem;
+  text-align: center;
 }
 
 .react-datepicker__day--selected,
@@ -57,18 +97,35 @@
   border-radius: 0.3rem;
 }
 
+.react-datepicker__navigation {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 1.2rem;
+  top: 10px;
+}
+
+.react-datepicker__navigation--previous {
+  left: 10px;
+}
+
+.react-datepicker__navigation--next {
+  right: 10px;
+}
+
 .slots-container {
-  background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  padding: 1.5rem;
   flex-grow: 1;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
 }
 
 .slots-container h2 {
   color: #007bff;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .slots-list {
@@ -76,64 +133,96 @@
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Fuerza 3 columnas de igual ancho */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 0.75rem;
 }
 
 .slots-list li {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background-color: #fff;
+  border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: #000000;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.slots-list li.reserved {
+  opacity: 0.5;
+  pointer-events: none; /* Evita que se puedan seleccionar */
+  background-color: #ccc; /* O un color grisáceo para indicar que está reservado */
+  color: #666;
+  border-color: #ccc;
+  cursor: not-allowed; /* Cambia el cursor para indicar que no se puede interactuar */
+}
+
+.slots-list li.reserved:hover {
+  background-color: #ccc;
+  color: #666;
+  border-color: #ccc;
 }
 
 .slots-list li:hover {
-  background-color: rgb(52, 93, 134);
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
 .slots-list li.selected {
   background-color: #28a745;
   color: white;
-  border-color: #1e7e34;
+  border-color: #28a745;
 }
 
 .slot-icon {
   color: #007bff;
+  margin-right: 0.5rem;
 }
 
-.confirmation {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+.appointments-content.loading,
+.appointments-content.error {
   text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #6c757d;
 }
 
-.confirmation p {
-  margin-bottom: 1rem;
-  font-weight: bold;
-  color: #28a745;
+.appointments-content.error {
+  color: #dc3545;
 }
 
-.confirmation button {
-  /* Los estilos del Button component se aplicarán aquí */
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.25rem;
-  color: white;
-  background-color: #007bff; /* Un azul llamativo para confirmar */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 1rem;
-}
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .appointments-layout {
+    flex-direction: column;
+  }
 
-.confirmation button:hover {
-  background-color: #0056b3;
+  .appointments-layout > aside {
+    position: static; /* El Sidebar fluye con el contenido */
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+  }
+
+  .appointments-content {
+    margin-left: 0; /* No hay margen izquierdo en pantallas pequeñas */
+    padding: 1rem;
+  }
+
+  .appointment-selector {
+    flex-direction: column;
+  }
+
+  .calendar-container {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 }

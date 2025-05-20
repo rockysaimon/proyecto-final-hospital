@@ -13,6 +13,7 @@ import {
   faCog,
   faBell,
   faInfoCircle, // Nuevo icono para "Acerca De"
+  faListAlt, // Nuevo icono para "Mis Citas"
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'; // Importa Link para la navegación
 
@@ -21,15 +22,13 @@ function Home() {
 
   return (
     <div className="home-page">
-      
       <div className="home-content"> {/* El contenido principal ahora está directamente aquí */}
-      <Navbar />
+        <Navbar />
         <header className="home-header">
           <h1>¡Bienvenido al Sistema, {userName}!</h1>
           <div className="header-actions">
           </div>
         </header>
-        
 
         <section className="quick-access">
           <h2>Acceso Rápido</h2>
@@ -37,6 +36,10 @@ function Home() {
             <Link to="/appointments" className="quick-access-item">
               <FontAwesomeIcon icon={faCalendarAlt} className="quick-access-icon" />
               <span>Agendar Cita</span>
+            </Link>
+            <Link to="/my-appointments" className="quick-access-item"> {/* Nuevo enlace */}
+              <FontAwesomeIcon icon={faListAlt} className="quick-access-icon" />
+              <span>Ver Mis Citas</span>
             </Link>
             <Link to="/vital-signs" className="quick-access-item">
               <FontAwesomeIcon icon={faHeartbeat} className="quick-access-icon" />
