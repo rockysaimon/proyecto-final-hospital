@@ -1,3 +1,6 @@
+/* src/index.css */
+
+/* Mantén lo que ya tenías de :root para las variables CSS */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,13 +8,43 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; /* Este es el color de fondo por defecto */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ¡IMPORTANTE! Importa la fuente Montserrat aquí si quieres que sea global */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 }
+
+/* Modificamos los estilos de <body> y añadimos estilos para <html> y <div id="root"> */
+html, body, #root {
+  width: 100%; /* Asegura que ocupen el 100% del ancho del viewport */
+  margin: 0; /* Elimina cualquier margen predeterminado */
+  padding: 0; /* Elimina cualquier padding predeterminado */
+  min-height: 100vh; /* Asegura que ocupen al menos el 100% de la altura del viewport */
+  box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
+  /* overflow-x: hidden; */ /* Descomenta si quieres evitar el scroll horizontal */
+}
+
+/* Estilos específicos para el body */
+body {
+  /* No repetimos font-family, line-height, font-weight, color-scheme, color, background-color
+     porque ya están definidos en :root o serán sobrescritos por tus estilos de página.
+     Aquí puedes poner estilos de fondo de la aplicación, si no los tienes en :root. */
+  font-family: 'Montserrat', sans-serif; /* Usa la fuente global de tu aplicación */
+  background-color: #f8f9fa; /* Un color de fondo más claro para toda la app, si lo deseas */
+}
+
+/* Estilos para el contenedor raíz de tu aplicación React */
+#root {
+  display: flex; /* Esto es crucial para que Navbar y el main-layout se organicen */
+  flex-direction: column; /* Apila Navbar y el main-layout verticalmente */
+  padding: 2%;
+}
+
 
 a {
   font-weight: 500;
@@ -20,23 +53,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {

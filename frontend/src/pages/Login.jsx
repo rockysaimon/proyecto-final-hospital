@@ -1,8 +1,8 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './styles.css';
 
-// Página de Login
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +28,18 @@ function Login() {
       if (response.ok) {
         alert('Inicio de sesión exitoso');
         localStorage.setItem('token', result.token);
-        navigate('/home'); // Redirige después del login
+
+        // ¡¡ESTA ES LA LÍNEA CRÍTICA A REVISAR Y AJUSTAR!!
+        // Asegúrate de que el backend envía 'user.nombre'
+        if (result.user && result.user.nombre) {
+          localStorage.setItem('user_name', result.user.nombre); // Correcto: Accede a 'nombre' dentro de 'user'
+        } else {
+          // Fallback por si acaso el nombre no llega o la estructura cambia
+          localStorage.setItem('user_name', email);
+          console.warn('Advertencia: El nombre de usuario no se recibió del backend, usando el correo electrónico como nombre.');
+        }
+
+        navigate('/home');
       } else {
         alert(result.message || 'Credenciales inválidas');
       }
@@ -70,6 +81,5 @@ function Login() {
     </div>
   );
 }
-
 
 export default Login;

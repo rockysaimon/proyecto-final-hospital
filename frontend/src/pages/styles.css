@@ -1,13 +1,17 @@
-/* Estilos generales */
+/* src/pages/styles.css */
+
+/* Estilos generales (elimina el display: flex del body si lo tienes, o modifícalo) */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f7fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    /* ! IMPORTANTE: Elimina o comenta estas líneas si están aquí ! */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* height: 100vh; */
+    /* El height: 100vh es mejor manejarlo en index.css para html,body,#root */
 }
 
 .app-container {
@@ -16,13 +20,24 @@ body {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* === AÑADE ESTAS LÍNEAS AQUÍ para centrar el .app-container en la página === */
+    display: flex;           /* Convierte el contenedor en un flex container */
+    flex-direction: column;  /* Apila los elementos internos verticalmente */
+    justify-content: center; /* Centra verticalmente el contenido dentro de .app-container (si lo necesitas) */
+    align-items: center;     /* Centra horizontalmente los elementos dentro de .app-container */
+    /* Para centrar el propio .app-container en la ventana, usamos margin: auto */
+    margin: auto; /* Esto centrará el contenedor horizontal y verticalmente en la página */
+    height: 100vh; /* Asegura que .app-container tenga suficiente altura para centrarse */
+    /* =========================================================================== */
 }
 
 .login-container,
 .register-container {
     padding: 20px;
     text-align: center;
-    box-sizing: border-box;  /* Asegura que el padding no afecte el ancho total */
+    box-sizing: border-box;
+    width: 100%; /* Asegura que ocupen todo el ancho disponible de .app-container */
 }
 
 .login-container h2,
@@ -38,8 +53,8 @@ body {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
-    background-color: #f9f9f9;  /* Fondo más claro para los inputs */
-    box-sizing: border-box; /* Asegura que el padding esté dentro del ancho total */
+    background-color: #f9f9f9;
+    box-sizing: border-box;
     color: #333;
 }
 
@@ -93,7 +108,7 @@ body {
 .register-link {
     margin-top: 15px;
     font-size: 0.9rem;
-    margin-bottom: 0; /* Elimina el margen inferior */
+    margin-bottom: 0;
 }
 
 .register-link a {

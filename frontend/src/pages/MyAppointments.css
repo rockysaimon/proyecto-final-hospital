@@ -1,21 +1,39 @@
 /* src/pages/MyAppointments.css */
+
+
+/* Contenedor principal de toda la página */
 .my-appointments-page {
   display: flex;
-  flex-direction: column; /* Cambiamos a columna para Navbar arriba */
-  min-height: 100vh;
+  flex-direction: column; /* La Navbar y el main-layout se apilarán verticalmente */
+  min-height: 100vh; /* Ocupa al menos el 100% de la altura de la ventana */
+  background-color: #f8f9fa; /* Un color de fondo para la página completa */
 }
 
-.main-content {
-  display: flex; /* Para Sidebar y contenido principal */
-  flex-grow: 1;
+/* No necesitas definir estilos para .navbar o .sidebar aquí.
+   Esos deberían estar en sus propios archivos de componente CSS. */
+
+
+/* Contenedor para el Sidebar y el contenido principal */
+.main-layout {
+  display: flex; /* Permite que Sidebar y appointments-content se coloquen lado a lado */
+  flex-grow: 1; /* Ocupa todo el espacio vertical restante después de la Navbar */
+  /* Si el contenido interno de main-layout puede desbordarse y necesitas un scroll,
+     puedes añadir 'overflow: hidden;' aquí y luego 'overflow-y: auto;' en .appointments-content
+     o en el propio .sidebar si también tiene su propio scroll. */
 }
 
+/* Contenido principal al lado del Sidebar */
 .appointments-content {
-  flex-grow: 1;
+  flex-grow: 1; /* ¡Importante! Esto hace que ocupe todo el espacio restante horizontalmente */
   padding: 20px;
-  margin-left: 220px; /* Ajusta según el ancho de tu Sidebar */
+  /* Elimina cualquier margin-left que puedas tener aquí, ya que el flexbox lo maneja. */
+  max-width: unset; /* Asegura que no haya un límite de ancho que lo haga estrecho */
+  width: 100%; /* Asegura que intente ocupar el 100% del espacio flexible asignado */
+  box-sizing: border-box; /* Incluye padding en el ancho total */
+  /* Si tu Appointments.jsx usa un max-width para el contenido interno, se centrará dentro de este espacio. */
 }
 
+/* Estilos existentes para la cuadrícula de citas */
 .appointments-content h2 {
   color: #333;
   margin-bottom: 20px;
@@ -25,7 +43,7 @@
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Más flexible */
   gap: 20px;
 }
 
@@ -61,4 +79,46 @@
 
 .delete-button:hover {
   background-color: #d32f2f;
+}
+
+/* Estilo para el estado de eliminación */
+.appointment-card.deleting {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Estilo para el mensaje de "No tienes citas" */
+/* Lo puedes dejar en línea o usar una clase como habíamos hablado antes */
+/* .no-appointments-message {
+    color: black;
+} */
+
+/* Media query para asegurar la responsividad en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column; /* Apila el Sidebar y el contenido en pantallas pequeñas */
+  }
+
+  /* Asegúrate de que tu Sidebar tenga su propio media query en Sidebar.css para manejar su ancho en móviles */
+  /* Por ejemplo, en Sidebar.css:
+  @media (max-width: 768px) {
+    .sidebar {
+      min-width: unset;
+      width: 100%;
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid #eee;
+    }
+  }
+  */
+
+  .appointments-content {
+    padding: 15px; /* Ajusta el padding para pantallas pequeñas */
+    margin-left: 0; /* Asegura que no haya margen izquierdo en móvil */
+  }
+
+  .appointments-grid {
+    grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+  }
 }

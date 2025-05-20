@@ -1,6 +1,7 @@
 // routes/appointmentsRoutes.js
 const express = require('express');
 const { getAvailableSlots, getReservedSlots, bookAppointment, getMyAppointments, deleteAppointment } = require('../controllers/appointmentsController');
+const { registerVitalSigns } = require('../controllers/vitalSignsController'); // Importa el nuevo controlador
 const protect = require('../middlewares/authModdleware');
 
 const router = express.Router();

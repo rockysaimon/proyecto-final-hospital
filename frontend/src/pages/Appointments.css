@@ -1,48 +1,39 @@
 /* src/pages/Appointments.css */
+
+/* Contenedor principal de toda la página */
 .appointments-page {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  flex-direction: column; /* Apila los elementos hijos (Navbar y main-layout) verticalmente */
+  min-height: 100vh; /* Asegura que la página ocupe al menos toda la altura de la ventana */
   background-color: #f8f9fa;
 }
 
-/* Aseguramos que el Navbar esté siempre en la parte superior */
-.appointments-page > nav { /* Selecciona el Navbar que es hijo directo de appointments-page */
-  width: 100%;
-  z-index: 10; /* Asegura que esté por encima de otros elementos */
-  /* Puedes añadir otros estilos para tu Navbar aquí si es necesario,
-     como posición fixed si quieres que siempre esté visible al hacer scroll */
-}
 
+
+/* Contenedor para el Sidebar y el contenido principal */
 .appointments-layout {
-  display: flex;
-  flex-grow: 1;
-  overflow-y: auto;
+  display: flex; /* Permite que Sidebar y appointments-content se coloquen lado a lado */
+  flex-grow: 1; /* Ocupa el espacio vertical restante después de la Navbar */
+  /* overflow-y: auto; */ /* Mantén esto si quieres scroll solo en el layout principal */
 }
 
-.appointments-layout > aside { /* Selecciona el Sidebar que es hijo directo de appointments-layout */
-  width: 250px; /* Ancho típico de un Sidebar, ajusta según tu componente Sidebar */
-  /* Posición fixed para que se quede en su lugar al hacer scroll */
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  background-color: #f8f9fa; /* O el color de fondo de tu Sidebar */
-  border-right: 1px solid #eee; /* Opcional: una línea divisoria */
-  z-index: 5; /* Asegura que esté por encima del contenido principal */
-}
 
+
+/* Contenido principal al lado del Sidebar */
 .appointments-content {
-  flex-grow: 1;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex-grow: 1; /* Ocupa todo el espacio horizontal restante */
+  max-width: 1200px; /* Mantén tu max-width si lo deseas */
+  margin: 0 auto; /* Centra el contenido si hay espacio extra */
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   padding: 2rem;
-  /* Importante: margen izquierdo para dar espacio al Sidebar */
-  margin-left: 250px; /* Debe ser igual al ancho del Sidebar */
+  /* El margin-left ya no es necesario porque el flexbox lo posiciona automáticamente */
+  /* Si el sidebar no tiene un ancho fijo, puedes ajustar un padding-left en .appointments-content
+     para dar espacio, pero con min-width en .sidebar, no es estrictamente necesario. */
 }
+
+/* --- Resto de tus estilos CSS actuales, sin cambios --- */
 
 .appointments-content h1 {
   color: #007bff;
@@ -197,23 +188,24 @@
   color: #dc3545;
 }
 
-/* Estilos para pantallas más pequeñas */
+/* Estilos para pantallas más pequeñas (media queries) */
 @media (max-width: 768px) {
   .appointments-layout {
-    flex-direction: column;
+    flex-direction: column; /* Apila el Sidebar y el contenido en pantallas pequeñas */
   }
 
-  .appointments-layout > aside {
-    position: static; /* El Sidebar fluye con el contenido */
+  .sidebar { /* El Sidebar también se vuelve estático y ocupa todo el ancho */
+    min-width: unset; /* Elimina el ancho mínimo fijo */
     width: 100%;
+    position: static;
     height: auto;
     border-right: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee; /* Añade un borde inferior */
     margin-bottom: 1rem;
   }
 
   .appointments-content {
-    margin-left: 0; /* No hay margen izquierdo en pantallas pequeñas */
+    margin-left: 0; /* Elimina el margen izquierdo en pantallas pequeñas */
     padding: 1rem;
   }
 

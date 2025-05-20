@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { sql } = require('../config/db');
 
-// Función para registrar un nuevo usuario
+// Función para registrar un nuevo usuario (sin cambios aquí)
 const registerUser = async (req, res) => {
   const { nombre_usuario, correo, telefono, password, identificador, id_rol } = req.body;
   try {
@@ -17,8 +17,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insertar el nuevo usuario
-    const result = await sql.query`INSERT INTO Usuarios (id_usuario, nombre_usuario, correo, telefono, Token, identificador, id_rol) 
-    VALUES (2,${nombre_usuario}, ${correo}, ${telefono}, ${hashedPassword}, ${identificador}, ${id_rol})`;
+    const result = await sql.query`INSERT INTO Usuarios (id_usuario, nombre_usuario, correo, telefono, Token, identificador, id_rol)
+    VALUES (3,${nombre_usuario}, ${correo}, ${telefono}, ${hashedPassword}, ${identificador}, ${id_rol})`;
 
     res.status(201).json({ message: 'Usuario registrado exitosamente' });
   } catch (error) {
@@ -26,7 +26,6 @@ const registerUser = async (req, res) => {
     res.status(500).json({ message: 'Error del servidor' });
   }
 };
-
 
 // Función para iniciar sesión
 const loginUser = async (req, res) => {
@@ -48,9 +47,26 @@ const loginUser = async (req, res) => {
     console.log('Clave secreta para firmar el token:', process.env.JWT_SECRET);
 
     // Generar un token JWT
-    const token = jwt.sign({ id_usuario: user.recordset[0].id_usuario }, process.env.JWT_SECRET, { expiresIn: '24h' }); // Aumenté la duración a 24h
+    // Extraemos la información del usuario del primer (y único) registro encontrado
+    const userInfo = user.recordset[0];
+    const token = jwt.sign({ id_usuario: userInfo.id_usuario }, process.env.JWT_SECRET, { expiresIn: '24h' });
 
-    res.json({ message: 'Login exitoso', token });
+    // ¡¡MODIFICACIÓN CLAVE AQUÍ!!
+    // Incluye el nombre_usuario (y cualquier otra info relevante) en la respuesta JSON
+    res.json({
+      message: 'Login exitoso',
+      token,
+      // Asegúrate de que 'nombre_usuario' es el nombre exacto de la columna en tu tabla Usuarios
+      user: {
+        id_usuario: userInfo.id_usuario,
+        nombre: userInfo.nombre_usuario, // <-- Aquí enviamos el nombre
+        correo: userInfo.correo,
+        // Puedes añadir más campos si los necesitas en el frontend, como 'id_rol', 'telefono', etc.
+        // rol: userInfo.id_rol,
+        // telefono: userInfo.telefono
+      }
+    });
+
   } catch (error) {
     console.error('Error al iniciar sesión: ', error);
     res.status(500).json({ message: 'Error del servidor' });

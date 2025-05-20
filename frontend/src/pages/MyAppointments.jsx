@@ -126,11 +126,11 @@ const MyAppointments = () => {
 
   return (
     <div className="my-appointments-page">
-      <Navbar />
-      <div className="main-content">
+      <Navbar /> {/* La Navbar va directamente aquí, no dentro de un div "nav" */}
+      <div className="main-layout"> {/* Nuevo contenedor para Sidebar y contenido principal */}
         <Sidebar />
         <div className="appointments-content">
-          {content} {/* Renderiza el contenido dinámicamente */}
+          {content}
         </div>
       </div>
     </div>

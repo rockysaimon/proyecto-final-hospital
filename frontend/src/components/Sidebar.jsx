@@ -15,19 +15,19 @@ function Sidebar() {
         <li>
           <Link to="/appointments" className="sidebar-link">
             <FontAwesomeIcon icon={faCalendarAlt} className="sidebar-icon" />
-            Citas
+            Reservar Citas
+          </Link>
+        </li>
+        <li>
+          <Link to="/my-appointments" className="sidebar-link">
+            <FontAwesomeIcon icon={faCalendarAlt} className="sidebar-icon" />
+            Ver Citas
           </Link>
         </li>
         <li>
           <Link to="/vital-signs" className="sidebar-link">
             <FontAwesomeIcon icon={faHeartbeat} className="sidebar-icon" />
             Signos Vitales
-          </Link>
-        </li>
-        <li>
-          <Link to="/vital-signs/history" className="sidebar-link">
-            <FontAwesomeIcon icon={faFileMedicalAlt} className="sidebar-icon" />
-            Historial Signos
           </Link>
         </li>
         {/* Agrega aquí más opciones según el rol y las funcionalidades */}

@@ -111,18 +111,22 @@ const getMyAppointments = async (req, res) => {
 const deleteAppointment = async (req, res) => {
   const { fecha, hora, id_medico } = req.body;
   const id_usuario = req.user.id_usuario;
+  console.log('Backend - Datos recibidos para eliminar cita:', { fecha, hora, id_medico}); // LOG
 
-  console.log('Backend - Datos recibidos para eliminar cita:', { fecha, hora, id_medico, id_paciente }); // LOG
-
-  if (!fecha || !hora || !id_medico || !id_paciente) {
+  if (!fecha || !hora || !id_medico) {
     return res.status(400).json({ message: 'Faltan datos para eliminar la cita.' });
   }
 
   try {
+    // 1. Convertimos la fecha ISO a 'YYYY-MM-DD'
+    const datePart = new Date(fecha).toISOString().slice(0, 10); // '2025-05-20'
+
+    // 2. Combinamos con la hora y los segundos para el formato de DB
+    const finalDateTimeForDB = `${datePart} ${hora}:00`; // '2025-05-20 08:00:00'
     const query = `
       DELETE FROM Agenda_Medica
       WHERE id_medico = ${id_usuario}
-        AND fecha = '${fecha}'
+        AND fecha = '${finalDateTimeForDB}'
         AND estado = 'ocupado'
     `;
     console.log('Backend - Consulta SQL para eliminar cita:', query); // LOG

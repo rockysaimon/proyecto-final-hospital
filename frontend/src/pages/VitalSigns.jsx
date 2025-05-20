@@ -1,13 +1,15 @@
 // src/pages/VitalSigns.jsx
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar'; // Importa el Sidebar
+import Sidebar from '../components/Sidebar';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import './VitalSigns.css'; // Importa el archivo de estilos
+import './VitalSigns.css';
+import Swal from 'sweetalert2'; // Importa SweetAlert
 
 function VitalSigns() {
   const [vitalSigns, setVitalSigns] = useState({
+    id_paciente: '', // ¡Nuevo campo para el ID del paciente!
     oximetry: '',
     respiratoryRate: '',
     heartRate: '',
@@ -25,12 +27,76 @@ function VitalSigns() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { // Marca como async
     e.preventDefault();
-    const bloodPressure = `${vitalSigns.bloodPressureSystolic}/${vitalSigns.bloodPressureDiastolic}`;
-    const dataToSubmit = { ...vitalSigns, bloodPressure };
-    console.log('Registrando signos vitales:', dataToSubmit);
-    // Aquí iría la llamada a la API del backend
+
+    // Validar que todos los campos estén llenos
+    const requiredFields = [
+      'id_paciente', 'oximetry', 'respiratoryRate', 'heartRate',
+      'temperature', 'bloodPressureSystolic', 'bloodPressureDiastolic', 'glucose'
+    ];
+    const isAnyFieldEmpty = requiredFields.some(field => !vitalSigns[field]);
+
+    if (isAnyFieldEmpty) {
+      Swal.fire('Error', 'Por favor, rellena todos los campos.', 'error');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        Swal.fire('Error', 'No estás autenticado. Por favor, inicia sesión.', 'error');
+        return;
+      }
+
+      // Preparar los datos para enviar al backend
+      const dataToSubmit = {
+        id_paciente: parseInt(vitalSigns.id_paciente, 10), // Asegura que sea un número
+        oximetry: parseFloat(vitalSigns.oximetry),
+        respiratoryRate: parseInt(vitalSigns.respiratoryRate, 10),
+        heartRate: parseInt(vitalSigns.heartRate, 10),
+        temperature: parseFloat(vitalSigns.temperature),
+        bloodPressureSystolic: parseInt(vitalSigns.bloodPressureSystolic, 10),
+        bloodPressureDiastolic: parseInt(vitalSigns.bloodPressureDiastolic, 10),
+        glucose: parseFloat(vitalSigns.glucose),
+        // No enviamos bloodPressure combinado aquí, ya que el backend lo espera separado
+      };
+
+      console.log('Datos a enviar:', dataToSubmit);
+
+      const response = await fetch('http://localhost:5000/api/vital-signs/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSubmit),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Error al registrar signos vitales: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      Swal.fire('Éxito', responseData.message, 'success');
+
+      // Opcional: Limpiar el formulario después del envío exitoso
+      setVitalSigns({
+        id_paciente: '',
+        oximetry: '',
+        respiratoryRate: '',
+        heartRate: '',
+        temperature: '',
+        bloodPressureSystolic: '',
+        bloodPressureDiastolic: '',
+        glucose: '',
+      });
+
+    } catch (error) {
+      console.error('Error al registrar signos vitales:', error);
+      Swal.fire('Error', error.message, 'error');
+    }
   };
 
   return (
@@ -42,6 +108,13 @@ function VitalSigns() {
           <h1>Registrar Signos Vitales</h1>
           <form onSubmit={handleSubmit} className="vital-signs-form">
             <div className="form-grid">
+              <Input
+                label="ID del Paciente" // Campo para el ID del paciente
+                type="number"
+                name="id_paciente"
+                value={vitalSigns.id_paciente}
+                onChange={handleChange}
+              />
               <Input
                 label="Oximetría (%)"
                 type="number"
@@ -92,7 +165,6 @@ function VitalSigns() {
                 value={vitalSigns.glucose}
                 onChange={handleChange}
               />
-              {/* Puedes agregar más campos aquí */}
             </div>
             <Button type="submit">Registrar Signos</Button>
           </form>
